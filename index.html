@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Singly Linked List Demo</title>
+    <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script
+        src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        .list-group-item {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body data-bs-theme="dark">
+
+    <div class="container mt-5">
+        <h2>Singly Linked List Demo</h2>
+        <div class="input-group mb-3">
+            <input type="number" id="nodeValue" class="form-control"
+                placeholder="Enter value">
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="button"
+                    onclick="addNode()">Add Node</button>
+            </div>
+        </div>
+        <table id="linkedList" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Value</th>
+                    <th>Location</th>
+                    <th>Next</th> <!-- Column for arrow -->
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Linked list will be displayed here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Define Node class
+        class Node {
+            constructor(data, location) {
+                this.data = data;
+                this.location = location; // Set location for each node
+                this.next = null;
+            }
+        }
+
+        // Define SinglyLinkedList class
+        class SinglyLinkedList {
+            constructor() {
+                this.head = null;
+            }
+
+            // Method to add a node to the end of the list
+            addNode(data) {
+                const newNode = new Node(data, this.getLength() + 1); // Set location based on current length
+                if (!this.head) {
+                    this.head = newNode;
+                } else {
+                    let current = this.head;
+                    while (current.next) {
+                        current = current.next;
+                    }
+                    current.next = newNode;
+                }
+                this.displayList();
+            }
+
+            // Method to get the length of the linked list
+            getLength() {
+                let length = 0;
+                let current = this.head;
+                while (current) {
+                    length++;
+                    current = current.next;
+                }
+                return length;
+            }
+
+            // Method to display the linked list
+            displayList() {
+                $('#linkedList tbody').empty();
+                let current = this.head;
+                while (current) {
+                    const arrow = current.next ? '<i class="fas fa-arrow-down"></i>' : 'Null'; 
+                    $('#linkedList tbody').append(`
+                        <tr>
+                            <td>${current.data}</td>
+                            <td>${current.location * 100}</td>
+                            <td>${arrow}</td>
+                        </tr>
+                    `);
+                    current = current.next;
+                }
+            }
+        }
+
+        // Initialize a new SinglyLinkedList
+        const linkedList = new SinglyLinkedList();
+
+        // Function to add a node to the list
+        function addNode() {
+            const nodeValue = $('#nodeValue').val();
+            if (nodeValue !== '') {
+                linkedList.addNode(nodeValue);
+                $('#nodeValue').val('');
+            }
+        }
+    </script>
+
+</body>
+</html>
