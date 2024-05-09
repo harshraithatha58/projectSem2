@@ -23,7 +23,7 @@
 <body data-bs-theme="dark">
 
     <div class="container mt-5">
-        <h2>Singly Linked List Demo</h2>
+        <h2>Singly Linked List Demo <button id="NAND" class="btn btn-primary">Logical Nand Gate </button></h2> 
         <div class="input-group mb-3">
             <input type="number" id="nodeValue" class="form-control"
                 placeholder="Enter value">
@@ -47,6 +47,9 @@
     </div>
 
     <script>
+        $("#NAND").on("click",()=>{
+            window.location.href="./nand.html"
+        })
         // Define Node class
         class Node {
             constructor(data, location) {
